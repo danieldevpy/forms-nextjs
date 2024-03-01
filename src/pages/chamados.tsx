@@ -6,6 +6,8 @@ import StepDadosPessoais from "@/components/stepDP";
 import StepMotivo from "@/components/stepMotivo";
 import BoxSuporte from "@/components/boxSuporte";
 import StepAnexos from "@/components/stepAnexos";
+import Head from 'next/head';
+
 
 export default function PageChamados() {
   const [name, setName] = React.useState("");
@@ -34,12 +36,12 @@ export default function PageChamados() {
     form.append('unity', municipio + setor);
     form.append('reason', selectMotivo);
     form.append('desc', newDesc);
-
+    form.append('contact', celular);
     selectedFiles.forEach((file) => {
       form.append('files', file); // Adiciona cada arquivo sem um índice
     });
 
-    const response = await fetch('http://localhost:8000/glpi', {
+    const response = await fetch('http://192.168.1.154:8000/glpi', {
       method: 'POST',
       body: form
     });
@@ -50,26 +52,6 @@ export default function PageChamados() {
       setFinished(2);
     }
     
-    if(selectMotivo == options[5]){
-      const parts = motivoAdd.split('-')
-      const datas = parts[1].split(',')
-      const n = datas[0].replace(' ', '')
-      const c = datas[1].replace(' ', '')
-      const p = datas[2].replace(' ', '')
-      const result = await fetch('http://localhost:8000/sso', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },      
-        body:  JSON.stringify({"name": n, "cpf": c, "cargo": p, "contact": celular})
-      });
-
-      if(result.status == 200){
-        const uuid = await result.json()
-        console.log(uuid)
-      }
-    }
-
     setName("");
     setCelular("");
     setMunicipio("");
@@ -127,6 +109,9 @@ export default function PageChamados() {
 
   return (
     <Box>
+      <Head>
+        <title>Chamados TI - CISBAF</title>
+      </Head>
       <ResponsiveAppBar  />
       <BoxSuporte>
         <Box className="boxStepper">

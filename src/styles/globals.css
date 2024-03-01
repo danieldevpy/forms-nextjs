@@ -135,3 +135,20 @@ body {
   flex-direction: column;
   gap: 10px;
 }
+
+@media (max-width: 800px){
+  
+  .boxSuporte{
+    padding: 10px;
+    height: 90vh;
+    align-items: center;
+    margin-top: 0px;
+    flex-direction: column;
+    gap: 0px;
+    overflow: auto;
+  }
+  .imgBoxSuporte{
+    display: none;
+  }
+
+}

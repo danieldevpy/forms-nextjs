@@ -35,7 +35,7 @@ export default function StepMotivo(props: MotivoProps){
         }
         if(props.options[5]){
             if(rbCreate == "Sistema SSO"){
-                props.setMotivoAdd(`${rbCreate} - ${name}, ${cpf}, ${cargo}`)
+                props.setMotivoAdd(`* ${rbCreate} - ${name}, ${cpf}, ${cargo} *`)
             }
             if(rbCreate == "Sistema MARQUE Fácil"){
                 props.setMotivoAdd(`${rbCreate} - ${name}, ${cpf}, ${cargo}, ${email}, ${municipio}`)
