@@ -41,7 +41,7 @@ export default function PageChamados() {
       form.append('files', file); // Adiciona cada arquivo sem um índice
     });
 
-    const response = await fetch('http://192.168.1.154:8000/glpi', {
+    const response = await fetch('http://192.168.1.232:8005/glpi', {
       method: 'POST',
       body: form
     });
