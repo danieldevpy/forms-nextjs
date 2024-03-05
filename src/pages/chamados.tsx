@@ -31,14 +31,13 @@ export default function PageChamados() {
   const [snackProps, setSnackProps] = React.useState<SnackProps>({visible: false, type: "success"});
 
 
-  const useSnack =(message: string, type: SnackProps['type'])=>{
+  const setSnack =(message: string, type: SnackProps['type'])=>{
     setSnackProps({visible: true, type: type, message: message})
   }
   
   const closeSnack =()=>{
     setSnackProps({visible: false, type: "info", message: ""})
   }
-
 
   const request =async()=>{
 
@@ -92,7 +91,7 @@ export default function PageChamados() {
       request();
       return true
     }catch(e){
-      useSnack(String(e), "error")
+      setSnack(String(e), "error")
       return false
     }
   }
