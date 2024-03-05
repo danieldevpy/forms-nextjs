@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Typography, CircularProgress } from "@mui/material";
+import { Box, Typography, CircularProgress, Snackbar, Alert, Slide } from "@mui/material";
 import ResponsiveAppBar from "@/components/appBar";
 import HorizontalLinearStepper from "@/components/stepper";
 import StepDadosPessoais from "@/components/stepDP";
@@ -8,6 +8,12 @@ import BoxSuporte from "@/components/boxSuporte";
 import StepAnexos from "@/components/stepAnexos";
 import Head from 'next/head';
 
+
+interface SnackProps{
+  visible: boolean;
+  type: "success"|"error"|"info";
+  message?: string;
+}
 
 export default function PageChamados() {
   const [name, setName] = React.useState("");
@@ -20,8 +26,20 @@ export default function PageChamados() {
   const [desc, setDesc] = React.useState("");
   const [selectedFiles, setSelectedFiles] = React.useState<File[]>([]);
   const [finished, setFinished] = React.useState(0);
+  const [visibleSnack, setVisibleSnack] = React.useState(false);
   const options = ['Suporte Computador', 'Suporte Impressora', 'Suporte Sistemas', 'Suporte Tablet', 'Suporte Celular', 'Criação de Login', 'Requisição de Material', 'Convocação para o site']
+  const [snackProps, setSnackProps] = React.useState<SnackProps>({visible: false, type: "success"});
+
+
+  const useSnack =(message: string, type: SnackProps['type'])=>{
+    setSnackProps({visible: true, type: type, message: message})
+  }
   
+  const closeSnack =()=>{
+    setSnackProps({visible: false, type: "info", message: ""})
+  }
+
+
   const request =async()=>{
 
     const newDesc = `
@@ -38,7 +56,7 @@ export default function PageChamados() {
     form.append('desc', newDesc);
     form.append('contact', celular);
     selectedFiles.forEach((file) => {
-      form.append('files', file); // Adiciona cada arquivo sem um índice
+      form.append('files', file);
     });
 
     const response = await fetch('http://192.168.1.232:8005/glpi', {
@@ -74,7 +92,7 @@ export default function PageChamados() {
       request();
       return true
     }catch(e){
-      alert(e);
+      useSnack(String(e), "error")
       return false
     }
   }
@@ -147,6 +165,21 @@ export default function PageChamados() {
           />
         </Box>
       </BoxSuporte>
+
+        <Snackbar open={snackProps.visible} autoHideDuration={6000} onClose={closeSnack} anchorOrigin={{vertical: "top", horizontal: "center"}}>
+          <Slide in={snackProps.visible} direction="up" >
+            <Alert
+              onClose={closeSnack}
+              severity={snackProps?.type}
+              variant="filled"
+              sx={{ width: '100%' }}
+            >
+              {snackProps.message}
+            </Alert>
+            </Slide>
+        </Snackbar>
+
+      
     </Box>
   );
 }

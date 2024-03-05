@@ -14,9 +14,9 @@ export default function BoxSuporte(props: SuporteProps){
 
     React.useEffect(() => {
         const handleResize = () => {
-            console.log(windowSize)
           setWindowSize(window.innerWidth);
         };
+        setWindowSize(window.innerWidth);
         window.addEventListener('resize', handleResize);
 
         return () => {
@@ -56,7 +56,7 @@ export default function BoxSuporte(props: SuporteProps){
                         height={300}
                         alt="img"/>
                     ):(
-                        <Button onClick={()=>{setStarted(true)}}>Começar</Button>
+                        <Button variant="contained" onClick={()=>{setStarted(true)}}>Começar</Button>
                     )}
                 </Box>
             </Box>
