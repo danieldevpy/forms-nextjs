@@ -14,6 +14,7 @@ interface MotivoProps{
 }
 
 export default function StepMotivo(props: MotivoProps){
+    const [textMotivo, setTextMotivo] = React.useState("");
     const [rbCreate, setRbCreate] = React.useState('Sistema SSO');
     const [name, setName] = React.useState("");
     const [cpf, setCpf] = React.useState("");
@@ -22,23 +23,33 @@ export default function StepMotivo(props: MotivoProps){
     const [municipio, setMunicipio] = React.useState("");
     const optionsCargo = ["Medico", "Enfermeiro"]
 
-
-        React.useEffect(()=>{
-            if(props.select){
+    React.useEffect(()=>{
+        if(props.select){
+            if(props.select == props.options[2] || props.select == props.options[5]){
+                props.setMotivoAdd(textMotivo);
+            }else{
                 props.setMotivoAdd("");
             }
-        }, [props.select])
+        }
+    }, [props.select])
 
     React.useEffect(()=>{
-        if(props.options[2]){
+     
+        if(props.select == props.options[2]){
+            setTextMotivo(rbCreate);
             props.setMotivoAdd(rbCreate);
         }
-        if(props.options[5]){
+        if(props.select == props.options[5]){
+            console.log('k')
             if(rbCreate == "Sistema SSO"){
-                props.setMotivoAdd(`* ${rbCreate} - ${name}, ${cpf}, ${cargo} *`)
+                let saveText = `* ${rbCreate} - ${name}, ${cpf}, ${cargo} *`;
+                props.setMotivoAdd(saveText);
+                setTextMotivo(saveText);
             }
             if(rbCreate == "Sistema MARQUE Fácil"){
-                props.setMotivoAdd(`${rbCreate} - ${name}, ${cpf}, ${cargo}, ${email}, ${municipio}`)
+                let saveText = `${rbCreate} - ${name}, ${cpf}, ${cargo}, ${email}, ${municipio}`;
+                props.setMotivoAdd(saveText);
+                setTextMotivo(saveText);
             }
         }
        
