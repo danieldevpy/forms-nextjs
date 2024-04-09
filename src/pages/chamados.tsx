@@ -59,7 +59,7 @@ export default function PageChamados() {
       form.append('files', file);
     });
 
-    const response = await fetch('http://192.168.1.10:8004/glpi', {
+    const response = await fetch('https://chamadosti.cisbaf.org.br/glpi', {
       method: 'POST',
       body: form
     });
