@@ -85,12 +85,13 @@ export default function PageChamados() {
     try{
       if(!name) throw Error("Por favor preencha o nome corretamente!");
       if(!celular) throw Error("Por favor preencha o celular corretamente!");
-      if(celular.length != 11) throw Error("Por favor preencha DD+NUMERO");
+      if(celular.length != 11) throw Error("Por favor preencha DD+NUMERO corretamente!");
       if(!municipio) throw Error("Por favor preencha o municipio corretamente!");
       if(setores && !setor) throw Error("Por favor selecione um setor!")
       if(!selectMotivo) throw Error("Por favor preencha o motivo!");
       if(selectMotivo != options[5] && !desc) throw Error("Por favor preencha uma descrição do problema!");
-      request();
+      console.log(celular);
+      // request();
       return true
     }catch(e){
       setSnack(String(e), "error")

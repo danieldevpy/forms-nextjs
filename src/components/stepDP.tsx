@@ -20,6 +20,14 @@ interface StepDadosPessoaisProps {
 export default function StepDadosPessoais(props: StepDadosPessoaisProps) {
   const chaves: string[] = Object.keys(municipios);
 
+  const changedCel =(number: string)=>{
+    const isNumber = /^\d+$/.test(number);
+    
+    if (isNumber) {
+        props.setCelular(number);
+    } 
+  }
+
   const handleChange = (value: string) => {
     props.setMunicipio(value);
     if (municipios[value] && Array.isArray(municipios[value])) {
@@ -43,7 +51,7 @@ export default function StepDadosPessoais(props: StepDadosPessoaisProps) {
           label="CELULAR"
           variant="outlined"
           value={props.celular}
-          onChange={(e) => props.setCelular(e.target.value)}
+          onChange={(e) => changedCel(e.target.value)}
         />
       </Box>
       <Box className="selectStepper">
