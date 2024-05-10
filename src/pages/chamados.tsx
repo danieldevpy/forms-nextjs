@@ -85,7 +85,7 @@ export default function PageChamados() {
     try{
       if(!name) throw Error("Por favor preencha o nome corretamente!");
       if(!celular) throw Error("Por favor preencha o celular corretamente!");
-      if(celular.length > 11 || celular.length < 11) throw Error("Por favor preencha DD+NUMERO");
+      if(celular.length != 11) throw Error("Por favor preencha DD+NUMERO");
       if(!municipio) throw Error("Por favor preencha o municipio corretamente!");
       if(setores && !setor) throw Error("Por favor selecione um setor!")
       if(!selectMotivo) throw Error("Por favor preencha o motivo!");
