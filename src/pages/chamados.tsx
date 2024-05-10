@@ -90,8 +90,7 @@ export default function PageChamados() {
       if(setores && !setor) throw Error("Por favor selecione um setor!")
       if(!selectMotivo) throw Error("Por favor preencha o motivo!");
       if(selectMotivo != options[5] && !desc) throw Error("Por favor preencha uma descrição do problema!");
-      console.log(celular);
-      // request();
+      request();
       return true
     }catch(e){
       setSnack(String(e), "error")
